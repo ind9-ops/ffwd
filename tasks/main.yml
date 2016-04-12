@@ -1,0 +1,87 @@
+---
+
+- name: Installing ffwd
+  gem: name=ffwd version={{ffwd_version}}
+  register: out
+
+- debug: var=out
+
+- name: Installing ffwd plugins
+  sudo: yes
+  shell: "gem install --no-user-install ffwd-{{item.key}} -v {{item.value.version}}"
+  with_dict: "{{ffwd_plugins}}"
+  register: out
+
+- debug: var=out
+
+- name: Creates ffwd-conf directory and sets permissions
+  sudo: yes
+  file:
+    path: "{{ffwd_conf_dir}}"
+    state: directory
+    owner: "{{ansible_ssh_user}}"
+    group: "{{ansible_ssh_user}}"
+    mode: "0755"
+    recurse: yes
+
+- name: Copying conf directory
+  sudo: yes
+  copy:
+    src: "../conf/"
+    dest:  "{{ffwd_conf_dir}}"
+
+- name: Copying basic-logging conf
+  sudo: yes
+  template:
+    src: "../templates/basic-logging.j2"
+    dest: "{{ffwd_conf_dir}}/basic-logging"
+    owner: "{{ansible_ssh_user}}"
+    group: "{{ansible_ssh_user}}"
+    mode: 0755
+
+- name: Copying basic conf
+  sudo: yes
+  template:
+    src: "../templates/basic.j2"
+    dest: "{{ffwd_conf_dir}}/basic"
+    owner: "{{ansible_ssh_user}}"
+    group: "{{ansible_ssh_user}}"
+    mode: 0755
+
+- name: Copying sinks conf
+  sudo: yes
+  template:
+    src: "../templates/out-{{item.key}}.j2"
+    dest: "{{ffwd_conf_dir}}/out-{{item.key}}"
+    owner: "{{ansible_ssh_user}}"
+    group: "{{ansible_ssh_user}}"
+    mode: 0755
+  with_dict: "{{ffwd_plugins}}"
+
+- name: Creating ffwd_log_dir
+  sudo: yes
+  file:
+    path: "{{ffwd_log_dir}}"
+    state: directory
+    mode: 0755
+    owner: "{{ansible_ssh_user}}"
+    group: "{{ansible_ssh_user}}"
+    recurse: true
+
+- name: Rendering upstart script
+  sudo: yes
+  template:
+    src: "../templates/ffwd_upstart.j2"
+    dest: "{{ffwd_base_dir}}/ffwd_upstart"
+    owner: "{{ansible_ssh_user}}"
+    group: "{{ansible_ssh_user}}"
+    mode: 0755
+
+- name: Restart monit
+  sudo: yes
+  shell: "service monit restart"
+
+- name: Start ffwd via monit
+  sudo: yes
+  shell: "monit restart ffwd"
+

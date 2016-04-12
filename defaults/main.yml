@@ -1,0 +1,17 @@
+---
+ffwd_version: "0.4.7"
+ffwd_base_dir: "/opt/idx_ffwd"
+ffwd_log_dir: "/var/log/idx_ffwd"
+
+ffwd_conf_dir: "{{ffwd_base_dir}}/conf/"
+ffwd_log: "{{ffwd_log_dir}}/ffwd.log"
+ffwd_process_pid_file: "{{ffwd_base_dir}}/ffwd_process.pid"
+
+ffwd_plugins:
+  riemann:
+    version: "0.4.7"
+    host: "scp-riemann.prod.indix.tv"
+    port: 5555
+
+ffwd_sinks:
+  - riemann

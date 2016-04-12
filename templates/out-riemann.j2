@@ -1,0 +1,6 @@
+:output:
+  - :type: "riemann"
+    :protocol: "tcp"
+    :flush_period: 10
+    :host: {{item.value.host}}
+    :port: {{item.value.port}}

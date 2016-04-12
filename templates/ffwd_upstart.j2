@@ -1,0 +1,15 @@
+#!/bin/bash
+
+set -x
+
+case $1 in
+    start)
+       /usr/local/bin/ffwd -d {{ffwd_conf_dir}} > {{ffwd_log}} 2>&1 &
+       echo $! > {{ffwd_process_pid_file}};
+       ;;
+     stop)
+       kill `cat {{ffwd_process_pid_file}}` ;;
+     *)
+       echo "usage: ffwd_upstart {start|stop}" ;;
+esac
+exit 0

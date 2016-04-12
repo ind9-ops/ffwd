@@ -1,0 +1,15 @@
+# Enables multiple input plugins.
+
+:input:
+  # TEXT protocols.
+  # echo -n '{"type": "metric", "key": "answer", "value": 42}' | nc -w0 -u 127.0.0.1 19000
+  - :type: "json"
+    :kind: :frame
+  # echo '{"type": "metric", "key": "answer", "value": 42}' | nc -w0 127.0.0.1 19000
+  - :type: "json"
+    :kind: :line
+  # BINARY protocols.
+  # - :type: "riemann"
+  #  :protocol: "tcp"
+  # - :type: "riemann"
+  #  :protocol: "udp"
