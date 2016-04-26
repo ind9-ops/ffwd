@@ -169,6 +169,7 @@ galaxy_info:
 dependencies:
 
   - role: ruby-ffwd
+    src: https://github.com/ind9-ops/ruby-ffwd
     sudo: yes
 
   - role: monit
