@@ -1,6 +1,7 @@
 ---
 
 - name: Installing ffwd
+  sudo: yes
   gem: name=ffwd version={{ffwd_version}}
   register: out
 
