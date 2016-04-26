@@ -25,9 +25,6 @@ matrix:
 before_install:
   - sudo apt-get update -qq
 
-  # Remove rsyslog
-  - sudo apt-get remove --purge --yes ffwd
-
 install:
   # Install Ansible.
   - if [ "$ANSIBLE_VERSION" = "latest" ]; then pip install --no-binary ansible ansible; else pip install --no-binary ansible ansible==$ANSIBLE_VERSION; fi
