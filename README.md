@@ -1,4 +1,4 @@
-[!Build Status](https://travis-ci.org/ind9-ops/ffwd.svg?branch=best-check)](https://travis-ci.org/ind9-ops/ffwd)
+[![Build Status](https://travis-ci.org/ind9-ops/ffwd.svg?branch=best-check)](https://travis-ci.org/ind9-ops/ffwd)
 
 Role Name
 =========
