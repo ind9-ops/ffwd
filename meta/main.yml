@@ -172,6 +172,9 @@ dependencies:
     src: https://github.com/ind9-ops/ruby-ffwd
     sudo: yes
 
+  - role: ruby
+    sudo: yes
+
   - role: monit
     sudo: yes
     monit_services:
