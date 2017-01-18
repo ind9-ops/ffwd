@@ -8,7 +8,10 @@
 
 - name: Installing ffwd plugins
   sudo: yes
-  shell: "gem install --no-user-install ffwd-{{item.key}} -v {{item.value.version}}"
+  gem:
+    name: "ffwd-{{item.key}}"
+    version: "{{item.value.version}}"
+    user_install: no
   with_dict: "{{ffwd_plugins}}"
   register: out
 
@@ -79,9 +82,12 @@
 
 - name: Restart monit
   sudo: yes
-  shell: "service monit restart"
+  service:
+    name: monit
+    state: restarted
 
 - name: Start ffwd via monit
   sudo: yes
-  shell: "monit restart ffwd"
-
+  monit:
+    name: ffwd
+    state: restarted
