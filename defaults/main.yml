@@ -1,9 +1,9 @@
 ---
 ffwd_version: "0.4.7"
-ffwd_base_dir: "/opt/idx_ffwd"
-ffwd_log_dir: "/var/log/idx_ffwd"
+ffwd_base_dir: /opt/idx_ffwd
+ffwd_log_dir: /var/log/idx_ffwd
 
-ffwd_conf_dir: "{{ffwd_base_dir}}/conf/"
+ffwd_conf_dir: "{{ffwd_base_dir}}/conf"
 ffwd_log: "{{ffwd_log_dir}}/ffwd.log"
 ffwd_process_pid_file: "{{ffwd_base_dir}}/ffwd_process.pid"
 
