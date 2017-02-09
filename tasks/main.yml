@@ -2,7 +2,10 @@
 
 - name: Installing ffwd
   sudo: yes
-  gem: name=ffwd version={{ffwd_version}}
+  gem:
+    name: ffwd
+    version: "{{ffwd_version}}"
+    user_install: no
   register: out
 
 - debug: var=out
