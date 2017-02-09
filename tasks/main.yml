@@ -85,6 +85,9 @@
     mode: 0755
   notify: Restart monit
 
+- name: Flushing handlers
+  meta: flush_handlers
+
 - name: Start ffwd via monit
   sudo: yes
   monit:
