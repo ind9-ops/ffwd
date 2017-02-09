@@ -1,2 +1,7 @@
 ---
 # handlers file for ffwd
+- name: Restart monit
+  sudo: yes
+  service:
+    name: monit
+    state: restarted

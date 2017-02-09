@@ -1,6 +1,7 @@
 ---
 
 - name: Installing ffwd
+  sudo: yes
   gem: name=ffwd version={{ffwd_version}}
   register: out
 
@@ -41,6 +42,7 @@
     owner: "{{ansible_ssh_user}}"
     group: "{{ansible_ssh_user}}"
     mode: 0755
+  notify: Restart monit
 
 - name: Copying basic conf
   sudo: yes
@@ -50,6 +52,7 @@
     owner: "{{ansible_ssh_user}}"
     group: "{{ansible_ssh_user}}"
     mode: 0755
+  notify: Restart monit
 
 - name: Copying sinks conf
   sudo: yes
@@ -60,6 +63,7 @@
     group: "{{ansible_ssh_user}}"
     mode: 0755
   with_dict: "{{ffwd_plugins}}"
+  notify: Restart monit
 
 - name: Creating ffwd_log_dir
   sudo: yes
@@ -79,15 +83,10 @@
     owner: "{{ansible_ssh_user}}"
     group: "{{ansible_ssh_user}}"
     mode: 0755
-
-- name: Restart monit
-  sudo: yes
-  service:
-    name: monit
-    state: restarted
+  notify: Restart monit
 
 - name: Start ffwd via monit
   sudo: yes
   monit:
     name: ffwd
-    state: restarted
+    state: started
